@@ -1,6 +1,7 @@
 import type { BlogArticle } from "@/types";
 
 const trimTrailingSlash = (value: string) => value.replace(/\/+$/, "");
+const DEFAULT_PRODUCTION_API_BASE_URL = "https://stepstodevopsandsre.netlify.app";
 
 const getApiBaseUrl = () => {
   const configured = import.meta.env.VITE_BLOG_API_BASE_URL;
@@ -11,6 +12,10 @@ const getApiBaseUrl = () => {
 
   if (window.location.hostname === "localhost") {
     return "http://localhost:8888";
+  }
+
+  if (window.location.hostname === "stepstodevopsandsre.github.io") {
+    return DEFAULT_PRODUCTION_API_BASE_URL;
   }
 
   return "";

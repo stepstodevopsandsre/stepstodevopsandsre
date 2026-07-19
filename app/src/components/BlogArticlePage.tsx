@@ -95,16 +95,16 @@ export const BlogArticlePage = ({ slug }: BlogArticlePageProps) => {
       </MotionReveal>
 
       {state.status === "loading" ? (
-        <MotionReveal className="mt-8 flex min-h-[18rem] items-center justify-center rounded-[2rem] border border-border/70 bg-surface/75 p-8 shadow-panel" delay={0.1}>
+        <div className="mt-8 flex min-h-[18rem] items-center justify-center rounded-[2rem] border border-border/70 bg-surface/75 p-8 shadow-panel">
           <div className="flex items-center gap-3 text-muted">
             <LoaderCircle className="animate-spin" size={20} />
             Loading article content...
           </div>
-        </MotionReveal>
+        </div>
       ) : null}
 
       {state.status === "error" ? (
-        <MotionReveal className="mt-8 rounded-[2rem] border border-rose-500/20 bg-rose-500/10 p-8 shadow-panel" delay={0.1}>
+        <div className="mt-8 rounded-[2rem] border border-rose-500/20 bg-rose-500/10 p-8 shadow-panel">
           <div className="flex items-start gap-3">
             <AlertCircle className="mt-0.5 text-rose-500" size={18} />
             <div>
@@ -115,16 +115,16 @@ export const BlogArticlePage = ({ slug }: BlogArticlePageProps) => {
               </p>
             </div>
           </div>
-        </MotionReveal>
+        </div>
       ) : null}
 
       {state.status === "success" ? (
-        <MotionReveal className="mt-8 rounded-[2rem] border border-border/70 bg-surface/80 p-6 shadow-panel sm:p-8" delay={0.1}>
+        <section className="mt-8 rounded-[2rem] border border-border/70 bg-surface/80 p-6 shadow-panel sm:p-8">
           <article
             className="prose prose-slate max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:text-accent dark:prose-invert"
             dangerouslySetInnerHTML={{ __html: state.article.html }}
           />
-        </MotionReveal>
+        </section>
       ) : null}
 
       <MotionReveal className="mt-10 rounded-[2rem] border border-border/70 bg-canvas/70 p-6 sm:p-8" delay={0.15}>
