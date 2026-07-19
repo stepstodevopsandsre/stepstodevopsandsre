@@ -87,7 +87,7 @@ const TableOfContents = ({ toc }: { toc: TocEntry[] }) => {
   return (
     <nav
       aria-label="On this page"
-      className="rounded-[1.5rem] border border-border/60 bg-surface/70 p-5 shadow-panel backdrop-blur"
+      className="rounded-[1.5rem] border border-border/60 bg-surface/70 p-5 shadow-panel backdrop-blur max-h-[calc(100vh-8rem)] overflow-y-auto no-scrollbar"
     >
       <button
         type="button"
