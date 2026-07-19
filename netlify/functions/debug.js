@@ -16,26 +16,18 @@ export const handler = async (event) => {
 
   try {
     const notion = new Client({ auth: notionToken });
-    const pageIds = [
-      "3a25aace-fb86-8152-a5e7-f4cf2b04937d",
-      "3a25aace-fb86-819a-9f18-f4226fc6ab7e",
-      "3a25aace-fb86-816c-839a-cae67acd5a15"
-    ];
+    const databaseId = "0c391e18-4cf4-48e8-918f-50cbface959c";
     
-    const results = {};
-    for (const id of pageIds) {
-      try {
-        const page = await notion.pages.retrieve({ page_id: id });
-        results[id] = {
-          id: page.id,
-          parent: page.parent,
-          properties: page.properties,
-          url: page.url
-        };
-      } catch (err) {
-        results[id] = { error: err.message };
-      }
-    }
+    const response = await notion.databases.query({
+      database_id: databaseId
+    });
+
+    const entries = response.results.map(page => ({
+      id: page.id,
+      url: page.url,
+      parent: page.parent,
+      properties: page.properties
+    }));
 
     return {
       statusCode: 200,
@@ -43,14 +35,14 @@ export const handler = async (event) => {
         ...createCorsHeaders(requestOrigin || allowedOrigin),
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(results)
+      body: JSON.stringify(entries)
     };
   } catch (error) {
     return {
       statusCode: 500,
       headers: createCorsHeaders(requestOrigin || allowedOrigin),
       body: JSON.stringify({
-        error: error instanceof Error ? error.message : "Error debugging hierarchy."
+        error: error instanceof Error ? error.message : "Error querying database."
       })
     };
   }
