@@ -110,6 +110,8 @@ export const latestBlogs: BlogPost[] = [
       "A deep dive into histogram quantiles, PromQL query shape, Grafana panel design, and the production mistakes that make tail-latency dashboards lie — straight from a real observability build.",
     tag: "Observability",
     readTime: "12 min read",
+    domain: "Observability",
+    module: "Metrics & Dashboards",
     href: "#/blog/grafana-observability-p95-p99-latency"
   }
 ];

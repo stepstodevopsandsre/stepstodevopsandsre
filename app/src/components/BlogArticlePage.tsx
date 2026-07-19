@@ -135,7 +135,6 @@ const TableOfContents = ({ toc }: { toc: TocEntry[] }) => {
     </nav>
   );
 };
-
 // --- Related posts horizontal strip at article bottom (Hierarchy-aware fall-through strategy) ---
 const RelatedPostsStrip = ({
   currentSlug,
@@ -152,33 +151,45 @@ const RelatedPostsStrip = ({
 }) => {
   const candidates = allPosts.filter((p) => p.slug !== currentSlug);
 
-  // Strategy 1: Sibling posts in the same Module
-  let matched = candidates.filter((p) => currentModule && p.module === currentModule);
-  let label = currentModule && matched.length > 0 ? `More in ${currentModule}` : "";
+  let matched: BlogPost[] = [];
+  let label = "";
 
-  // Strategy 2: Sibling posts in the same Domain
+  // 1. Same Module
+  if (currentModule) {
+    const moduleMatches = candidates.filter((p) => p.module === currentModule);
+    if (moduleMatches.length > 0) {
+      matched = moduleMatches;
+      label = `More in ${currentModule}`;
+    }
+  }
+
+  // 2. Same Domain (if we have < 3 matched items)
   if (matched.length < 3 && currentDomain) {
     const domainMatches = candidates.filter(
       (p) => p.domain === currentDomain && !matched.some((m) => m.slug === p.slug)
     );
-    matched = [...matched, ...domainMatches];
-    if (!label) {
-      label = `More from ${currentDomain}`;
+    if (domainMatches.length > 0) {
+      matched = [...matched, ...domainMatches];
+      if (!label) {
+        label = `More from ${currentDomain}`;
+      }
     }
   }
 
-  // Strategy 3: Sibling posts in the same Category/Tag
+  // 3. Same Category/Tag (if we have < 3 matched items)
   if (matched.length < 3 && currentTag) {
     const tagMatches = candidates.filter(
       (p) => p.tag === currentTag && !matched.some((m) => m.slug === p.slug)
     );
-    matched = [...matched, ...tagMatches];
-    if (!label) {
-      label = `More in ${currentTag}`;
+    if (tagMatches.length > 0) {
+      matched = [...matched, ...tagMatches];
+      if (!label) {
+        label = `More in ${currentTag}`;
+      }
     }
   }
 
-  // Strategy 4: Fallback to any recent articles
+  // 4. Fallback to any recent articles
   if (matched.length < 3) {
     const defaultMatches = candidates.filter(
       (p) => !matched.some((m) => m.slug === p.slug)
@@ -217,6 +228,7 @@ const RelatedPostsStrip = ({
     </MotionReveal>
   );
 };
+
 
 export const BlogArticlePage = ({ slug, allPosts }: BlogArticlePageProps) => {
   const [state, setState] = useState<LoadState>({ status: "loading" });
