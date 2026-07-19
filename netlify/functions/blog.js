@@ -204,7 +204,6 @@ export const handler = async (event) => {
 
     const pageId = (await resolvePageIdFromDatabase(notion, slug)) || pageMap[slug];
 
-
     if (!pageId) {
       return {
         statusCode: 404,
@@ -216,7 +215,22 @@ export const handler = async (event) => {
     }
 
     const page = await notion.pages.retrieve({ page_id: pageId });
-    const mdBlocks = await notionToMarkdown.pageToMarkdown(pageId);
+    
+    // Determine the page that holds the content:
+    // If the database row has a "Notion Page URL" property, we fetch the content blocks
+    // from that linked page in the hierarchy. Otherwise, we fetch from the database page itself.
+    let contentPageId = pageId;
+    const notionPageUrlProp = page.properties?.["Notion Page URL"];
+    if (notionPageUrlProp && notionPageUrlProp.type === "url" && notionPageUrlProp.url) {
+      const url = notionPageUrlProp.url;
+      // Extract the 32-character page ID (hex, optional dashes) from the URL path
+      const match = url.match(/([a-f0-9]{32})/i) || url.match(/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/i);
+      if (match) {
+        contentPageId = match[1];
+      }
+    }
+
+    const mdBlocks = await notionToMarkdown.pageToMarkdown(contentPageId);
     const markdownResult = notionToMarkdown.toMarkdownString(mdBlocks);
     const markdown = markdownResult.parent.trim();
     const html = sanitizeArticleHtml(await marked.parse(markdown));
