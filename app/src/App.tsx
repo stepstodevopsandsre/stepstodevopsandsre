@@ -7,12 +7,9 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { MotionReveal } from "@/components/MotionReveal";
-import { RoadmapTimeline } from "@/components/RoadmapTimeline";
 import {
-  featuredProjects,
   interviewQuestions,
   latestBlogs,
-  learningResources,
   site
 } from "@/data/siteContent";
 import { getBlogHref, getRouteFromHash, type AppRoute } from "@/lib/routes";
@@ -31,9 +28,9 @@ const HomePage = ({ posts }: { posts: BlogPost[] }) => {
 
       <ContentGrid
         id="blogs"
-        eyebrow="Latest Blog"
-        title="Real implementation notes, not content filler."
-        description="Your latest article is pulled from Notion through a secure serverless layer, while the rest of the site stays static and fast."
+        eyebrow="Latest Articles"
+        title="Production-grade depth, from real systems work."
+        description="Every article starts as canonical Notion notes from actual production experience — incidents, debugging sessions, architecture decisions — then flows through a serverless pipeline to render here. No recycled tutorials, no AI-padded prose."
       >
         {displayPosts.map((post, index) => (
         <MotionReveal key={post.slug} delay={0.04 * index}>
@@ -68,58 +65,6 @@ const HomePage = ({ posts }: { posts: BlogPost[] }) => {
             <p className="mt-4 text-sm leading-7 text-muted">{topic.description}</p>
             <a href={topic.href} className="mt-6 inline-flex text-sm font-semibold text-accent">
               Browse questions
-            </a>
-          </article>
-        </MotionReveal>
-      ))}
-    </ContentGrid>
-
-    <ContentGrid
-      id="resources"
-      eyebrow="Learning Resources"
-      title="Collect references that stay useful under pressure."
-      description="Resources, notes, and cheat sheets become more valuable when they are curated around workflows you revisit during real incidents and debugging sessions."
-    >
-      {learningResources.map((resource, index) => (
-        <MotionReveal key={resource.title} delay={0.04 * index}>
-          <article className={cardClassName}>
-            <span className="text-xs font-semibold uppercase tracking-[0.24em] text-accent">{resource.format}</span>
-            <h3 className="mt-5 font-display text-2xl font-semibold text-text">{resource.title}</h3>
-            <p className="mt-4 text-sm leading-7 text-muted">{resource.description}</p>
-            <a href={resource.href} className="mt-6 inline-flex text-sm font-semibold text-accent">
-              Open resource
-            </a>
-          </article>
-        </MotionReveal>
-      ))}
-    </ContentGrid>
-
-    <RoadmapTimeline />
-
-    <ContentGrid
-      id="projects"
-      eyebrow="Featured Projects"
-      title="Show the engineering system behind the content."
-      description="The strongest portfolio pieces explain the architecture, tradeoffs, and delivery decisions behind what visitors see."
-      columns="md:grid-cols-2"
-    >
-      {featuredProjects.map((project, index) => (
-        <MotionReveal key={project.title} delay={0.04 * index}>
-          <article className={cardClassName}>
-            <h3 className="font-display text-2xl font-semibold text-text">{project.title}</h3>
-            <p className="mt-4 text-sm leading-7 text-muted">{project.description}</p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {project.stack.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-border bg-canvas px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-muted"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-            <a href={project.href} className="mt-6 inline-flex text-sm font-semibold text-accent">
-              View showcase
             </a>
           </article>
         </MotionReveal>
@@ -172,7 +117,7 @@ function App() {
       <div className="pointer-events-none fixed inset-x-0 top-0 z-0 mx-auto h-[34rem] max-w-6xl bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.16),_transparent_50%),radial-gradient(circle_at_20%_15%,_rgba(251,113,133,0.16),_transparent_28%)] blur-3xl dark:bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.14),_transparent_45%),radial-gradient(circle_at_20%_15%,_rgba(251,113,133,0.12),_transparent_24%)]" />
       <div className="relative z-10">
         <Header />
-        {route.name === "blog" ? <BlogArticlePage slug={route.slug} /> : <HomePage posts={blogs} />}
+        {route.name === "blog" ? <BlogArticlePage slug={route.slug} allPosts={blogs.length > 0 ? blogs : latestBlogs} /> : <HomePage posts={blogs} />}
         <Footer />
       </div>
     </div>
