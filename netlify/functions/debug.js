@@ -1,5 +1,5 @@
 import { Client } from "@notionhq/client";
-import { DEFAULT_ORIGIN, createCorsHeaders, isAllowedOrigin } from "./_shared/blog-utils.js";
+import { DEFAULT_ORIGIN, createCorsHeaders } from "./_shared/blog-utils.js";
 
 export const handler = async (event) => {
   const allowedOrigin = process.env.ALLOWED_ORIGIN || DEFAULT_ORIGIN;
@@ -16,30 +16,26 @@ export const handler = async (event) => {
 
   try {
     const notion = new Client({ auth: notionToken });
-    const pageId = "3a15aace-fb86-8180-b37a-e46f5847cad7";
+    const pageIds = [
+      "3a25aace-fb86-8152-a5e7-f4cf2b04937d",
+      "3a25aace-fb86-819a-9f18-f4226fc6ab7e",
+      "3a25aace-fb86-816c-839a-cae67acd5a15"
+    ];
     
-    // Fetch page metadata
-    const page = await notion.pages.retrieve({ page_id: pageId });
-
-    // Fetch top-level block children
-    const response = await notion.blocks.children.list({
-      block_id: pageId,
-      page_size: 100
-    });
-
-    // Helper to recursively fetch child blocks for containers
-    const blocksWithChildren = await Promise.all(
-      response.results.map(async (block) => {
-        if (block.has_children) {
-          const children = await notion.blocks.children.list({
-            block_id: block.id,
-            page_size: 100
-          });
-          return { ...block, children: children.results };
-        }
-        return block;
-      })
-    );
+    const results = {};
+    for (const id of pageIds) {
+      try {
+        const page = await notion.pages.retrieve({ page_id: id });
+        results[id] = {
+          id: page.id,
+          parent: page.parent,
+          properties: page.properties,
+          url: page.url
+        };
+      } catch (err) {
+        results[id] = { error: err.message };
+      }
+    }
 
     return {
       statusCode: 200,
@@ -47,14 +43,14 @@ export const handler = async (event) => {
         ...createCorsHeaders(requestOrigin || allowedOrigin),
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ page, blocks: blocksWithChildren })
+      body: JSON.stringify(results)
     };
   } catch (error) {
     return {
       statusCode: 500,
       headers: createCorsHeaders(requestOrigin || allowedOrigin),
       body: JSON.stringify({
-        error: error instanceof Error ? error.message : "Error debugging Notion blocks."
+        error: error instanceof Error ? error.message : "Error debugging hierarchy."
       })
     };
   }
