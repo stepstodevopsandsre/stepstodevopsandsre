@@ -1,10 +1,14 @@
+import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
+  root: "app",
   plugins: [react()],
-  base: "/",
+  base: "./",
   build: {
+    outDir: "../dist",
+    emptyOutDir: true,
     assetsDir: "",
     rollupOptions: {
       output: {
@@ -16,7 +20,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": "/src"
+      "@": fileURLToPath(new URL("./app/src", import.meta.url))
     }
   }
 });
