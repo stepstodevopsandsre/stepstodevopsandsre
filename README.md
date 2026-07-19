@@ -61,7 +61,7 @@ NOTION_TOKEN=secret_your_notion_integration_token
 NOTION_BLOG_DATABASE_ID=your_notion_blog_database_id
 NOTION_BLOG_SLUG_PROPERTY=Slug
 NOTION_BLOG_STATUS_PROPERTY=Status
-NOTION_BLOG_PUBLISHED_VALUE=Published
+NOTION_BLOG_PUBLISHED_VALUE=Done
 ALLOWED_ORIGIN=https://stepstodevopsandsre.github.io
 ```
 
@@ -85,13 +85,13 @@ Recommended publishing rule:
 
 - Each blog article should live in the database as its own row page.
 - The row page content is the article body.
-- Set `Status` to `Published` when it is ready for the site.
+- Set `Status` to `Done` when it is ready for the site.
 
 Request flow:
 
 1. A visitor opens a GitHub Pages blog route like `#/blog/grafana-observability-p95-p99-latency`.
 2. The frontend calls the Netlify function with that slug.
-3. The Netlify function queries the Notion database for `Slug = slug` and `Status = Published`.
+3. The Netlify function queries the Notion database for `Slug = slug` and `Status = Done`.
 4. The matching Notion row page is converted to Markdown and sanitized HTML.
 5. The article is rendered in the GitHub Pages frontend.
 

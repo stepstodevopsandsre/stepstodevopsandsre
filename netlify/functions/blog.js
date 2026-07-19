@@ -28,7 +28,7 @@ const resolvePageIdFromDatabase = async (notion, slug) => {
 
   const slugProperty = process.env.NOTION_BLOG_SLUG_PROPERTY || "Slug";
   const statusProperty = process.env.NOTION_BLOG_STATUS_PROPERTY || "Status";
-  const publishedValue = process.env.NOTION_BLOG_PUBLISHED_VALUE || "Published";
+  const publishedValue = process.env.NOTION_BLOG_PUBLISHED_VALUE || "Done";
 
   const response = await notion.databases.query({
     database_id: databaseId,
