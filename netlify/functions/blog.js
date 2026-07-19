@@ -147,15 +147,51 @@ export const handler = async (event) => {
       return `<div class="notion-callout">${icon}<div class="callout-content"><p>${text}</p>${childrenMd}</div></div>`;
     });
 
+    // --- Mermaid text-contrast helpers ---
+    // Parse a 3- or 6-digit hex color string to { r, g, b }
+    const hexToRgb = (hex) => {
+      const h = hex.replace("#", "");
+      const full = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
+      return {
+        r: parseInt(full.slice(0, 2), 16),
+        g: parseInt(full.slice(2, 4), 16),
+        b: parseInt(full.slice(4, 6), 16)
+      };
+    };
+
+    // WCAG relative luminance (0 = black, 1 = white)
+    const relativeLuminance = ({ r, g, b }) => {
+      const sRGB = [r, g, b].map((v) => {
+        const s = v / 255;
+        return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * sRGB[0] + 0.7152 * sRGB[1] + 0.0722 * sRGB[2];
+    };
+
     // Intercept code blocks whose language is "mermaid" — output a div that Mermaid.js renders client-side
     notionToMarkdown.setCustomTransformer("code", async (block) => {
       const codeData = block.code;
       if (!codeData) return "";
       const language = codeData.language || "";
-      const content = (codeData.rich_text || []).map((t) => t.plain_text).join("");
+      const rawContent = (codeData.rich_text || []).map((t) => t.plain_text).join("");
       if (language === "mermaid") {
-        // HTML-escape angle brackets so the diagram text isn't mangled
-        const escaped = content
+        // For every `style X fill:#rrggbb` directive, automatically inject a
+        // contrasting text color so both light and dark fills remain readable.
+        const contrastAdjusted = rawContent.replace(
+          /style\s+(\w+)\s+(fill:(#[0-9a-fA-F]{3,6})([^,\n]*))(?!,color:)/g,
+          (match, _node, _rest, fillHex) => {
+            try {
+              const lum = relativeLuminance(hexToRgb(fillHex));
+              // > 0.35 → light background → use dark text; otherwise light text
+              const textColor = lum > 0.35 ? "#1a202c" : "#f1f5f9";
+              return `${match},color:${textColor}`;
+            } catch {
+              return match; // leave unchanged on parse error
+            }
+          }
+        );
+        // HTML-escape angle brackets so the diagram text isn't mangled by the sanitizer
+        const escaped = contrastAdjusted
           .replace(/&/g, "&amp;")
           .replace(/</g, "&lt;")
           .replace(/>/g, "&gt;");
@@ -163,7 +199,7 @@ export const handler = async (event) => {
       }
       // Fall back to a standard fenced code block for all other languages
       const fence = "```";
-      return `${fence}${language}\n${content}\n${fence}`;
+      return `${fence}${language}\n${rawContent}\n${fence}`;
     });
 
     const pageId = (await resolvePageIdFromDatabase(notion, slug)) || pageMap[slug];
