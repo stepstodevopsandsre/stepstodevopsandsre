@@ -293,31 +293,39 @@ export const BlogArticlePage = ({ slug, allPosts }: BlogArticlePageProps) => {
 
   return (
     <main className="mx-auto max-w-[88rem] px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-      {/* Back */}
-      <MotionReveal>
-        <a
-          href="#home"
-          className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-surface/70 px-4 py-2 text-sm font-medium text-muted transition hover:border-accent/30 hover:text-text"
-        >
-          <ArrowLeft size={16} />
-          Back to home
-        </a>
-      </MotionReveal>
+      {/* 3-column layout on desktop: Left sidebar (Back to home) | Centered Article | Right sidebar (TOC) */}
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[180px_1fr_240px] xl:grid-cols-[200px_1fr_260px]">
 
-      {/* 3-column layout on desktop: Left sidebar (TOC) | Centered Article | Right empty spacer */}
-      <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[240px_1fr_240px] xl:grid-cols-[260px_1fr_260px]">
-
-        {/* ── LEFT COLUMN: TOC (sticky, hidden on mobile) ── */}
+        {/* ── LEFT COLUMN: Back to home button (sticky, hidden on mobile) ── */}
         <aside className="hidden lg:block">
           <div className="sticky top-24">
-            <MotionReveal delay={0.06}>
-              <TableOfContents toc={toc} />
+            <MotionReveal>
+              <a
+                href="#home"
+                className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-surface/70 px-4 py-2.5 text-sm font-medium text-muted transition hover:border-accent/30 hover:text-text"
+              >
+                <ArrowLeft size={16} />
+                Back to home
+              </a>
             </MotionReveal>
           </div>
         </aside>
 
         {/* ── CENTER COLUMN: Centered Article Content ── */}
         <div className="min-w-0 max-w-4xl mx-auto w-full">
+          {/* Mobile Back Button (visible only on mobile) */}
+          <div className="lg:hidden mb-6">
+            <MotionReveal>
+              <a
+                href="#home"
+                className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-surface/70 px-4 py-2.5 text-sm font-medium text-muted transition hover:border-accent/30 hover:text-text"
+              >
+                <ArrowLeft size={16} />
+                Back to home
+              </a>
+            </MotionReveal>
+          </div>
+
           {/* Header card */}
           <MotionReveal
             className="rounded-[2rem] border border-border/70 bg-surface/80 p-6 shadow-panel backdrop-blur sm:p-8"
@@ -418,8 +426,14 @@ export const BlogArticlePage = ({ slug, allPosts }: BlogArticlePageProps) => {
           </MotionReveal>
         </div>
 
-        {/* ── RIGHT COLUMN: Empty Spacer (balancing the layout for center page centering) ── */}
-        <div className="hidden lg:block" aria-hidden="true" />
+        {/* ── RIGHT COLUMN: TOC (sticky, hidden on mobile) ── */}
+        <aside className="hidden lg:block">
+          <div className="sticky top-24">
+            <MotionReveal delay={0.06}>
+              <TableOfContents toc={toc} />
+            </MotionReveal>
+          </div>
+        </aside>
       </div>
     </main>
   );
