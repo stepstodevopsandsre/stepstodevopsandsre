@@ -22,9 +22,9 @@ import type {
 
 export const site = {
   name: "Steps to DevOps & SRE",
-  tagline: "Production-grade notes on DevOps, SRE, Cloud, and Platform Engineering.",
+  tagline: "Learn DevOps, SRE and Cloud, One Topic at a Time.",
   description:
-    "A practitioner's knowledge hub covering DevOps, SRE, Kubernetes, Cloud infrastructure, Chaos Engineering, System Design, and Platform Engineering. Every article is written from real production experience and served directly from Notion through a serverless pipeline.",
+    "A collection of notes, tutorials and interview guides on DevOps, SRE, Kubernetes, Cloud Infrastructure, System Design, Chaos Engineering and Platform Engineering. Everything here is based on what I've learned while building and operating real systems and Interview Experience .",
   githubUrl: "https://github.com/stepstodevopsandsre/stepstodevopsandsre.github.io"
 };
 
@@ -33,69 +33,69 @@ export const navigation: NavItem[] = [
   { label: "Blogs", href: "#blogs" },
   { label: "Interview Questions", href: "#interview-questions" },
   { label: "About", href: "#about" },
-  { label: "GitHub", href: site.githubUrl, external: true }
+ /* { label: "GitHub", href: site.githubUrl, external: true }*/
 ];
 
 export const heroStats: Stat[] = [
-  { value: "Notion", label: "Source of truth" },
-  { value: "GitHub Pages", label: "Static frontend" },
-  { value: "Netlify API", label: "Serverless content layer" }
+  { value: "Production Focus", label: "Notes from live systems" },
+  { value: "Step-by-Step", label: "Clear, structured tutorials" },
+  { value: "Interview Ready", label: "Based on real loops & RCAs" }
 ];
 
 export const categories: Category[] = [
   {
     title: "DevOps & CI/CD",
     description:
-      "Pipelines, GitOps, automation, and delivery workflows from real systems — not tutorial screenshots.",
+      "Pipelines, GitOps, automation and delivery workflows from real systems - not tutorial screenshots.",
     href: "#blogs",
     icon: GitBranch
   },
   {
     title: "SRE & Reliability",
     description:
-      "SLOs, error budgets, incident response, runbooks, and production resilience patterns that actually compound.",
+      "SLOs, error budgets, incident response, runbooks and production resilience patterns that actually compound.",
     href: "#blogs",
     icon: Shield
   },
   {
     title: "Kubernetes & Containers",
     description:
-      "Control plane internals, networking, scheduling, Helm, and production debugging from running real workloads.",
+      "Control plane internals, networking, scheduling, Helm and production debugging from running real workloads.",
     href: "#blogs",
     icon: Container
   },
   {
     title: "Cloud Infrastructure",
     description:
-      "AWS, OCI, Terraform, IaC patterns, and multi-cloud reliability from hands-on implementation.",
+      "AWS, OCI, Terraform, IaC patterns and multi-cloud reliability from hands-on implementation.",
     href: "#blogs",
     icon: Cloud
   },
   {
     title: "Observability",
     description:
-      "Metrics, logs, traces, PromQL, Grafana dashboards, and SLO-driven alerting built for production.",
+      "Metrics, logs, traces, PromQL, Grafana dashboards and SLO-driven alerting built for production.",
     href: "#blogs",
     icon: Activity
   },
   {
     title: "Chaos Engineering",
     description:
-      "Fault injection, blast radius scoping, and resilience testing that moves systems from fragile to antifragile.",
+      "Fault injection, blast radius scoping and resilience testing that moves systems from fragile to antifragile.",
     href: "#blogs",
     icon: Zap
   },
   {
     title: "System Design",
     description:
-      "Distributed systems, data-plane tradeoffs, consistency models, and architecture patterns at scale.",
+      "Distributed systems, data-plane tradeoffs, consistency models and architecture patterns at scale.",
     href: "#blogs",
     icon: Cpu
   },
   {
     title: "Platform Engineering",
     description:
-      "Internal developer platforms, golden paths, self-service tooling, and the org patterns that make them stick.",
+      "Internal developer platforms, golden paths, self-service tooling and the org patterns that make them stick.",
     href: "#blogs",
     icon: BookOpen
   }
@@ -107,7 +107,7 @@ export const latestBlogs: BlogPost[] = [
     notionPageId: "3a15aace-fb86-8180-b37a-e46f5847cad7",
     title: "Grafana Observability for p95 & p99 Latency (PromQL + Dashboard Setup)",
     summary:
-      "A deep dive into histogram quantiles, PromQL query shape, Grafana panel design, and the production mistakes that make tail-latency dashboards lie — straight from a real observability build.",
+      "A deep dive into histogram quantiles, PromQL query shape, Grafana panel design and the production mistakes that make tail-latency dashboards lie - straight from a real observability build.",
     tag: "Observability",
     readTime: "12 min read",
     domain: "Observability",
@@ -120,21 +120,21 @@ export const interviewQuestions: InterviewTopic[] = [
   {
     title: "SRE Foundations",
     description:
-      "Linux internals, networking, Prometheus, incident response, and cloud tradeoffs from an SRE lens.",
+      "Linux internals, networking, Prometheus, incident response and cloud tradeoffs from an SRE lens.",
     level: "SRE Foundations",
     href: "#"
   },
   {
     title: "Kubernetes and Platform Reliability",
     description:
-      "Control plane concepts, workload debugging, ingress behavior, scaling, and platform boundaries.",
+      "Control plane concepts, workload debugging, ingress behavior, scaling and platform boundaries.",
     level: "Intermediate",
     href: "#"
   },
   {
     title: "Cloud and Production Scenarios",
     description:
-      "OCI, AWS, Terraform, observability, RCA, and automation scenarios grounded in production operations.",
+      "OCI, AWS, Terraform, observability, RCA and automation scenarios grounded in production operations.",
     level: "Advanced",
     href: "#"
   }
@@ -144,33 +144,33 @@ export const learningResources: ResourceItem[] = [
   {
     title: "Observability Learning Trail",
     description:
-      "A focused path through metrics, logs, tracing, PromQL, dashboards, and SLO-driven thinking.",
+      "A focused path through metrics, logs, tracing, PromQL, dashboards and SLO-driven thinking.",
     format: "Guided Path",
     href: "#"
   },
   {
     title: "Cloud Reliability Toolkit",
     description:
-      "A curated set of docs, commands, and workflows for Terraform, cloud automation, and incident readiness.",
+      "A curated set of docs, commands and workflows for Terraform, cloud automation and incident readiness.",
     format: "Resource Collection",
     href: "#"
   },
   {
     title: "PromQL and Dashboard Notes",
     description:
-      "A compact reference for query composition, histogram pitfalls, and Grafana panel decisions.",
+      "A compact reference for query composition, histogram pitfalls and Grafana panel decisions.",
     format: "Cheat Sheet",
     href: "#"
   }
 ];
 
 export const socialLinks: SocialLink[] = [
-  { label: "GitHub", href: site.githubUrl },
+  /*{ label: "GitHub", href: site.githubUrl },
   { label: "LinkedIn", href: "https://www.linkedin.com/" },
-  { label: "X", href: "https://x.com/" },
+  { label: "X", href: "https://x.com/" },*/
   { label: "Email", href: "mailto:randhirduo@gmail.com" }
 ];
 
-// Keep these for type compatibility — they are no longer rendered
+// Keep these for type compatibility - they are no longer rendered
 export const featuredProjects: { title: string; description: string; stack: string[]; href: string }[] = [];
 export const roadmapSteps: { stage: string; title: string; description: string }[] = [];

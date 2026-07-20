@@ -8,16 +8,16 @@ export const AboutSection = () => (
           About
         </span>
         <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-text sm:text-4xl">
-          A durable public notebook for engineers who care about depth.
+          A public notebook about DevOps, SRE, cloud, Kubernetes and engineering practices
         </h2>
       </div>
 
       <div className="space-y-5 text-base leading-8 text-muted">
         <p>
-          This platform is designed to turn practical SRE and DevOps learning into lasting assets: blog posts, roadmap milestones, interview preparation, and project evidence that stays useful well after the initial research is done.
+          This blog is a public notebook for engineers who want to practice and prepare for interviews. I have documented topics, questions and learnings based on my experience from giving 150+ interviews.
         </p>
         <p>
-          The frontend remains static and fast on GitHub Pages, while the secure Netlify bridge lets the site pull real article content from Notion without exposing secrets in the browser.
+         The simple goal is to help in interview preparation and help engineers prepare better .
         </p>
       </div>
     </MotionReveal>

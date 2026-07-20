@@ -1,4 +1,9 @@
+import { Mail } from "lucide-react";
 import { socialLinks, site } from "@/data/siteContent";
+
+const iconMap: Record<string, React.ReactNode> = {
+  Email: <Mail size={14} className="inline-block mr-1.5 -mt-0.5" />
+};
 
 export const Footer = () => (
   <footer className="border-t border-border/60 bg-surface/35">
@@ -6,23 +11,26 @@ export const Footer = () => (
       <div>
         <p className="font-display text-lg font-semibold text-text">{site.name}</p>
         <p className="mt-2 max-w-xl text-sm text-muted">
-          A GitHub Pages knowledge hub backed by a secure Netlify function for live Notion blog delivery.
+          Learn DevOps, SRE and Cloud, One Topic at a Time.
         </p>
       </div>
 
       <div className="flex flex-wrap gap-4">
-        {socialLinks.map((link) => (
-          <a
-            key={link.label}
-            href={link.href}
-            target="_blank"
-            rel="noreferrer"
-            className="text-sm font-medium text-muted transition hover:text-text"
-          >
-            {link.label}
-          </a>
-        ))}
-      </div>
+          {socialLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center text-sm font-medium text-muted transition hover:text-text"
+            >
+              {iconMap[link.label]}
+              {link.label}
+            </a>
+          ))}
+        </div>
     </div>
   </footer>
 );
+
+

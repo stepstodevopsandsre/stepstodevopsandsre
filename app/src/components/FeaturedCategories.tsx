@@ -25,7 +25,7 @@ export const FeaturedCategories = () => (
     <SectionHeading
       eyebrow="Scope"
       title="Everything in the DevOps & SRE orbit."
-      description="From Kubernetes internals to chaos experiments, PromQL to Terraform — if it matters in production, there's a place for it here."
+      description="From Kubernetes internals to chaos experiments, PromQL to Terraform - if it matters in production, there's a place for it here."
     />
 
     <motion.div

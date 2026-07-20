@@ -1,25 +1,17 @@
 import { motion } from "framer-motion";
-import { ArrowRight, GitMerge, Shield, Telescope } from "lucide-react";
+import {
+  ArrowRight,
+  Activity,
+  Award,
+  BookOpen,
+  Cpu,
+  Database,
+  GitPullRequest,
+  Server,
+  Shield
+} from "lucide-react";
 import { heroStats, site } from "@/data/siteContent";
 import { MotionReveal } from "./MotionReveal";
-
-const flowSteps = [
-  {
-    icon: Telescope,
-    title: "Document in Notion",
-    text: "Production incidents, architecture decisions, and debugging sessions become canonical long-form notes — not ephemeral chat messages."
-  },
-  {
-    icon: GitMerge,
-    title: "Bridge via Netlify",
-    text: "A serverless function reads the mapped Notion page and returns sanitized, structured HTML. Secrets never leave the server."
-  },
-  {
-    icon: Shield,
-    title: "Publish on GitHub Pages",
-    text: "A fast static shell serves the content at your domain. Zero server costs, zero maintenance overhead, 100% reliability."
-  }
-];
 
 export const Hero = () => (
   <section id="home" className="relative overflow-hidden">
@@ -39,7 +31,7 @@ export const Hero = () => (
         </motion.span>
 
         <h1 className="mt-8 max-w-4xl font-display text-5xl font-semibold leading-[0.98] tracking-tight text-text sm:text-6xl lg:text-7xl">
-          Production knowledge, shaped into a public system.
+          Learn DevOps and SRE, One Topic at a Time.
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-muted sm:text-xl">
           {site.description}
@@ -73,45 +65,143 @@ export const Hero = () => (
         </dl>
       </MotionReveal>
 
+      {/* Premium custom Framer Motion interactive node-flow animation */}
       <MotionReveal className="relative" delay={0.08}>
         <div className="absolute -left-6 top-10 hidden h-28 w-28 rounded-full bg-rose-400/20 blur-3xl sm:block" />
         <div className="absolute bottom-6 right-4 hidden h-28 w-28 rounded-full bg-sky-400/20 blur-3xl sm:block" />
-        <div className="relative overflow-hidden rounded-[2rem] border border-border/70 bg-surface/78 p-6 shadow-panel backdrop-blur sm:p-7">
+        <div className="relative overflow-hidden rounded-[2.25rem] border border-border/70 bg-surface/78 p-6 shadow-panel backdrop-blur sm:p-8">
           <div className="absolute inset-x-0 top-0 h-px bg-sheen opacity-80" />
+          
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.28em] text-accent">Knowledge flow</p>
-              <h2 className="mt-2 font-display text-2xl font-semibold text-text">Write once, publish with structure</h2>
+              <p className="text-sm font-semibold uppercase tracking-[0.28em] text-accent">Knowledge Pipeline</p>
+             {/* <h2 className="mt-2 font-display text-2xl font-semibold text-text font-semibold">How notes turn into material</h2>*/}
             </div>
-            <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-400">
-              Serverless
+            <span className="rounded-full border border-accent/20 bg-accentSoft px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+              Interactive
             </span>
           </div>
 
-          <div className="mt-8 space-y-4">
-            {flowSteps.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, x: 16 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45, delay: 0.1 + i * 0.08, ease: [0.21, 0.47, 0.32, 0.98] }}
-                  className="rounded-2xl border border-border/60 bg-canvas/70 p-4"
-                >
-                  <div className="flex items-start gap-3">
-                    <span className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-accentSoft text-accent">
-                      <Icon size={18} />
-                    </span>
-                    <div>
-                      <h3 className="font-semibold text-text">{item.title}</h3>
-                      <p className="mt-2 text-sm leading-7 text-muted">{item.text}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
+          {/* Canvas Box */}
+          <div className="relative mt-8 h-[360px] rounded-3xl border border-border/50 bg-canvas/40 overflow-hidden select-none">
+            {/* SVG Connecting Flow Lines */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 360" fill="none">
+              {/* Backing Dashed Connections */}
+              <path d="M 80 60 C 130 60, 160 180, 200 180" stroke="rgba(148, 163, 184, 0.15)" strokeWidth="2" fill="none" />
+              <path d="M 80 180 L 200 180" stroke="rgba(148, 163, 184, 0.15)" strokeWidth="2" fill="none" />
+              <path d="M 80 300 C 130 300, 160 180, 200 180" stroke="rgba(148, 163, 184, 0.15)" strokeWidth="2" fill="none" />
+              <path d="M 200 180 C 240 180, 270 95, 320 95" stroke="rgba(148, 163, 184, 0.15)" strokeWidth="2" fill="none" />
+              <path d="M 200 180 C 240 180, 270 265, 320 265" stroke="rgba(148, 163, 184, 0.15)" strokeWidth="2" fill="none" />
+
+              {/* Animated Glowing Flow Dots */}
+              <motion.path
+                d="M 80 60 C 130 60, 160 180, 200 180"
+                stroke="rgb(var(--color-accent))"
+                strokeWidth="2"
+                strokeDasharray="6 30"
+                animate={{ strokeDashoffset: [0, -36] }}
+                transition={{ repeat: Infinity, duration: 2.2, ease: "linear" }}
+              />
+              <motion.path
+                d="M 80 180 L 200 180"
+                stroke="rgb(var(--color-accent))"
+                strokeWidth="2"
+                strokeDasharray="6 30"
+                animate={{ strokeDashoffset: [0, -36] }}
+                transition={{ repeat: Infinity, duration: 1.6, ease: "linear" }}
+              />
+              <motion.path
+                d="M 80 300 C 130 300, 160 180, 200 180"
+                stroke="rgb(var(--color-accent))"
+                strokeWidth="2"
+                strokeDasharray="6 30"
+                animate={{ strokeDashoffset: [0, -36] }}
+                transition={{ repeat: Infinity, duration: 2.2, ease: "linear" }}
+              />
+              <motion.path
+                d="M 200 180 C 240 180, 270 95, 320 95"
+                stroke="rgb(var(--color-success))"
+                strokeWidth="2"
+                strokeDasharray="6 30"
+                animate={{ strokeDashoffset: [0, -36] }}
+                transition={{ repeat: Infinity, duration: 2.0, ease: "linear" }}
+              />
+              <motion.path
+                d="M 200 180 C 240 180, 270 265, 320 265"
+                stroke="rgb(var(--color-success))"
+                strokeWidth="2"
+                strokeDasharray="6 30"
+                animate={{ strokeDashoffset: [0, -36] }}
+                transition={{ repeat: Infinity, duration: 2.0, ease: "linear" }}
+              />
+            </svg>
+
+            {/* Hubs & Badges */}
+            
+            {/* INPUT NODE 1 */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="absolute top-[30px] left-[15px] flex items-center gap-2 rounded-xl border border-blue-500/20 bg-blue-500/10 p-2 text-xs font-semibold text-blue-400 backdrop-blur shadow-glow/10 cursor-default"
+            >
+              <Cpu size={14} className="text-blue-400" />
+              <span>Real Systems</span>
+            </motion.div>
+
+            {/* INPUT NODE 2 */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="absolute top-[162px] left-[15px] flex items-center gap-2 rounded-xl border border-rose-500/20 bg-rose-500/10 p-2 text-xs font-semibold text-rose-400 backdrop-blur shadow-glow/10 cursor-default"
+            >
+              <Activity size={14} className="text-rose-400 animate-pulse" />
+              <span>Incidents & RCAs</span>
+            </motion.div>
+
+            {/* INPUT NODE 3 */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="absolute top-[282px] left-[15px] flex items-center gap-2 rounded-xl border border-purple-500/20 bg-purple-500/10 p-2 text-xs font-semibold text-purple-400 backdrop-blur shadow-glow/10 cursor-default"
+            >
+              <GitPullRequest size={14} className="text-purple-400" />
+              <span>Interview Loops</span>
+            </motion.div>
+
+            {/* CENTER HUB NODE */}
+            <div className="absolute top-[180px] left-[200px] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+              {/* Glowing ring animation */}
+              <motion.div
+                animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0.7, 0.3] }}
+                transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                className="absolute h-14 w-14 rounded-full bg-accent/20 blur-md"
+              />
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 360 }}
+                transition={{ type: "spring", stiffness: 180, damping: 12 }}
+                className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border-2 border-accent bg-surface shadow-glow text-accent cursor-pointer"
+              >
+                <Database size={24} className="animate-pulse" />
+              </motion.div>
+              <span className="mt-2 text-[10px] font-bold uppercase tracking-wider text-accent bg-accentSoft px-1.5 py-0.5 rounded-full border border-accent/15">
+                Learnings Hub
+              </span>
+            </div>
+
+            {/* OUTPUT NODE 1 */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="absolute top-[75px] right-[15px] flex items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-2.5 text-xs font-semibold text-emerald-400 backdrop-blur shadow-glow/10 cursor-default"
+            >
+              <BookOpen size={14} className="text-emerald-400" />
+              <span>Notes & Tutorials</span>
+            </motion.div>
+
+            {/* OUTPUT NODE 2 */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="absolute top-[245px] right-[15px] flex items-center gap-2 rounded-xl border border-cyan-500/20 bg-cyan-500/10 p-2.5 text-xs font-semibold text-cyan-400 backdrop-blur shadow-glow/10 cursor-default"
+            >
+              <Award size={14} className="text-cyan-400" />
+              <span>Interview Guides</span>
+            </motion.div>
           </div>
         </div>
       </MotionReveal>

@@ -29,8 +29,8 @@ const HomePage = ({ posts }: { posts: BlogPost[] }) => {
       <ContentGrid
         id="blogs"
         eyebrow="Latest Articles"
-        title="Production-grade depth, from real systems work."
-        description="Every article starts as canonical Notion notes from actual production experience — incidents, debugging sessions, architecture decisions — then flows through a serverless pipeline to render here. No recycled tutorials, no AI-padded prose."
+        title="Learn, Prepare and Get Ready"
+        description=""
       >
         {displayPosts.map((post, index) => (
         <MotionReveal key={post.slug} delay={0.04 * index}>
@@ -54,8 +54,8 @@ const HomePage = ({ posts }: { posts: BlogPost[] }) => {
     <ContentGrid
       id="interview-questions"
       eyebrow="Interview Questions"
-      title="Prep around themes you actually encounter in infra work."
-      description="Cluster questions around Linux, cloud, Kubernetes, observability, and production tradeoffs so revision feels like systems thinking, not memorization."
+      title="Prepare for Interviews with Confidence ."
+      description="Practice Questions around Linux, cloud, Kubernetes, observability and production cases ."
     >
       {interviewQuestions.map((topic, index) => (
         <MotionReveal key={topic.title} delay={0.04 * index}>

@@ -33,7 +33,7 @@ export const Header = () => {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        {/*<div className="hidden items-center gap-3 lg:flex">
           <ThemeToggle />
           <a
             href={site.githubUrl}
@@ -44,7 +44,7 @@ export const Header = () => {
             <Github size={16} />
             View Repository
           </a>
-        </div>
+        </div>*/}
 
         <div className="flex items-center gap-3 lg:hidden">
           <ThemeToggle />
