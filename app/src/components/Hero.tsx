@@ -31,7 +31,7 @@ export const Hero = () => (
         </motion.span>
 
         <h1 className="mt-8 max-w-4xl font-display text-5xl font-semibold leading-[0.98] tracking-tight text-text sm:text-6xl lg:text-7xl">
-          Learn DevOps and SRE, One Topic at a Time.
+          Learn DevOps and SRE, One Topic at a Time
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-muted sm:text-xl">
           {site.description}

@@ -11,7 +11,7 @@ export const Footer = () => (
       <div>
         <p className="font-display text-lg font-semibold text-text">{site.name}</p>
         <p className="mt-2 max-w-xl text-sm text-muted">
-          Learn DevOps, SRE and Cloud, One Topic at a Time.
+          Learn DevOps, SRE and Cloud, One Topic at a Time
         </p>
       </div>
 

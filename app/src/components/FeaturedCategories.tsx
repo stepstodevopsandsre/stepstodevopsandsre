@@ -24,7 +24,7 @@ export const FeaturedCategories = () => (
   <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
     <SectionHeading
       eyebrow="Scope"
-      title="Everything in the DevOps & SRE orbit."
+      title="Everything in the DevOps & SRE orbit"
       description="From Kubernetes internals to chaos experiments, PromQL to Terraform - if it matters in production, there's a place for it here."
     />
 

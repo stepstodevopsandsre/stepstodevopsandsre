@@ -260,9 +260,10 @@ export const BlogArticlePage = ({ slug, allPosts }: BlogArticlePageProps) => {
     return () => { cancelled = true; };
   }, [slug]);
 
-  // Mermaid
+  // Mermaid — init + lightbox on double-click
   useEffect(() => {
     if (state.status !== "success") return;
+
     const initMermaid = () => {
       if (typeof window.mermaid === "undefined") return;
       try {
@@ -276,7 +277,50 @@ export const BlogArticlePage = ({ slug, allPosts }: BlogArticlePageProps) => {
         });
         window.mermaid.run({ querySelector: ".mermaid" });
       } catch { /* ignore */ }
+
+      // ── Lightbox setup ─────────────────────────────────────────────────
+      // Inject lightbox into DOM once
+      let lb = document.getElementById("mermaid-lightbox");
+      if (!lb) {
+        lb = document.createElement("div");
+        lb.id = "mermaid-lightbox";
+        lb.setAttribute("role", "dialog");
+        lb.setAttribute("aria-modal", "true");
+        lb.innerHTML = `
+          <div id="mermaid-lightbox-content">
+            <button id="mermaid-lightbox-close" aria-label="Close">✕</button>
+            <div id="mermaid-lightbox-svg"></div>
+          </div>`;
+        document.body.appendChild(lb);
+
+        const closeBtn = document.getElementById("mermaid-lightbox-close");
+        const closeLb = () => lb!.classList.remove("open");
+
+        closeBtn?.addEventListener("click", closeLb);
+        lb.addEventListener("click", (e) => { if (e.target === lb) closeLb(); });
+        document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLb(); });
+      }
+
+      // Wrap diagrams and wire double-click
+      setTimeout(() => {
+        document.querySelectorAll(".mermaid:not(.mermaid-wrapped)").forEach((el) => {
+          el.classList.add("mermaid-wrapped");
+          const wrapper = document.createElement("div");
+          wrapper.className = "mermaid-wrapper";
+          el.parentNode?.insertBefore(wrapper, el);
+          wrapper.appendChild(el);
+
+          wrapper.addEventListener("dblclick", () => {
+            const svg = el.querySelector("svg");
+            if (!svg) return;
+            const container = document.getElementById("mermaid-lightbox-svg");
+            if (container) container.innerHTML = svg.outerHTML;
+            document.getElementById("mermaid-lightbox")?.classList.add("open");
+          });
+        });
+      }, 600); // give mermaid time to render SVGs
     };
+
     if (!window.__mermaidLoaded) {
       window.__mermaidLoaded = true;
       const s = document.createElement("script");
@@ -389,10 +433,10 @@ export const BlogArticlePage = ({ slug, allPosts }: BlogArticlePageProps) => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
-              className="mt-8 rounded-[2rem] border border-border/70 bg-surface/80 p-6 shadow-panel sm:p-8"
+              className="mt-8 overflow-x-hidden rounded-[2rem] border border-border/70 bg-surface/80 p-4 shadow-panel sm:p-8"
             >
               <article
-                className="prose prose-slate max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:text-accent dark:prose-invert"
+                className="prose prose-slate max-w-none overflow-x-hidden prose-headings:font-display prose-headings:tracking-tight prose-a:text-accent dark:prose-invert"
                 dangerouslySetInnerHTML={{ __html: processedHtml }}
               />
             </motion.section>

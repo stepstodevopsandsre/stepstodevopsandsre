@@ -34,7 +34,7 @@ const HomePage = ({ posts }: { posts: BlogPost[] }) => {
       >
         {displayPosts.map((post, index) => (
         <MotionReveal key={post.slug} delay={0.04 * index}>
-          <article className={cardClassName}>
+          <article className="flex h-full flex-col rounded-[1.75rem] border border-border/70 bg-surface/75 p-6 shadow-panel backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-accent/35 hover:bg-elevated">
             <div className="flex items-center justify-between gap-4">
               <span className="rounded-full bg-accentSoft px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
                 {post.tag}
@@ -42,7 +42,7 @@ const HomePage = ({ posts }: { posts: BlogPost[] }) => {
               <span className="text-sm text-muted">{post.readTime}</span>
             </div>
             <h3 className="mt-6 font-display text-2xl font-semibold text-text">{post.title}</h3>
-            <p className="mt-4 text-sm leading-7 text-muted">{post.summary}</p>
+            <p className="mt-4 flex-1 text-sm leading-7 text-muted">{post.summary}</p>
             <a href={getBlogHref(post.slug)} className="mt-6 inline-flex text-sm font-semibold text-accent">
               Read article
             </a>
@@ -54,7 +54,7 @@ const HomePage = ({ posts }: { posts: BlogPost[] }) => {
     <ContentGrid
       id="interview-questions"
       eyebrow="Interview Questions"
-      title="Prepare for Interviews with Confidence ."
+      title="Prepare for Interviews with Confidence"
       description="Practice Questions around Linux, cloud, Kubernetes, observability and production cases ."
     >
       {interviewQuestions.map((topic, index) => (

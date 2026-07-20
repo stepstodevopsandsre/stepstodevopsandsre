@@ -21,7 +21,7 @@ export const ContentGrid = ({
 }: ContentGridProps) => (
   <section id={id} className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
     <SectionHeading eyebrow={eyebrow} title={title} description={description} />
-    <MotionReveal className={`mt-12 grid gap-5 ${columns}`} delay={0.05}>
+    <MotionReveal className={`mt-12 grid items-stretch gap-5 ${columns}`} delay={0.05}>
       {children}
     </MotionReveal>
   </section>
