@@ -24,7 +24,7 @@ export const site = {
   name: "Steps to DevOps & SRE",
   tagline: "Learn DevOps, SRE and Cloud, One Topic at a Time",
   description:
-    "A collection of notes, tutorials and interview guides on DevOps, SRE, Kubernetes, Cloud Infrastructure, System Design, Chaos Engineering and Platform Engineering. Everything here is based on what I've learned while building and operating real systems and Interview Experience .",
+    "A collection of notes, tutorials and interview guides on DevOps, SRE, Kubernetes, Cloud Infrastructure, System Design, Chaos Engineering and Platform Engineering. ",
   githubUrl: "https://github.com/stepstodevopsandsre/stepstodevopsandsre.github.io"
 };
 
