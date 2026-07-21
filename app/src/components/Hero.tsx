@@ -10,7 +10,7 @@ import {
   Server,
   Shield
 } from "lucide-react";
-import { heroStats, site } from "@/data/siteContent";
+import {  site } from "@/data/siteContent";
 import { MotionReveal } from "./MotionReveal";
 
 export const Hero = () => (
@@ -53,20 +53,11 @@ export const Hero = () => (
           </a>
         </div>
 
-        <dl className="mt-14 grid gap-4 sm:grid-cols-3">
-          {heroStats.map((stat, index) => (
-            <MotionReveal key={stat.label} delay={0.08 * (index + 1)}>
-              <div className="rounded-[1.75rem] border border-border/70 bg-surface/75 p-5 shadow-panel backdrop-blur">
-                <dt className="text-sm text-muted">{stat.label}</dt>
-                <dd className="mt-2 font-display text-2xl font-semibold text-text">{stat.value}</dd>
-              </div>
-            </MotionReveal>
-          ))}
-        </dl>
+     
       </MotionReveal>
 
       {/* Premium custom Framer Motion interactive node-flow animation */}
-      <MotionReveal className="relative" delay={0.08}>
+      <MotionReveal className="relative hidden lg:block" delay={0.08}>
         <div className="absolute -left-6 top-10 hidden h-28 w-28 rounded-full bg-rose-400/20 blur-3xl sm:block" />
         <div className="absolute bottom-6 right-4 hidden h-28 w-28 rounded-full bg-sky-400/20 blur-3xl sm:block" />
         <div className="relative overflow-hidden rounded-[2.25rem] border border-border/70 bg-surface/78 p-6 shadow-panel backdrop-blur sm:p-8">

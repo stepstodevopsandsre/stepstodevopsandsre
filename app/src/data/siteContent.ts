@@ -36,11 +36,6 @@ export const navigation: NavItem[] = [
  /* { label: "GitHub", href: site.githubUrl, external: true }*/
 ];
 
-export const heroStats: Stat[] = [
-  { value: "Production Focus", label: "Notes from live systems" },
-  { value: "Step-by-Step", label: "Clear, structured tutorials" },
-  { value: "Interview Ready", label: "Based on real loops & RCAs" }
-];
 
 export const categories: Category[] = [
   {

@@ -392,11 +392,6 @@ export const BlogArticlePage = ({ slug, allPosts }: BlogArticlePageProps) => {
             <h1 className="mt-6 max-w-3xl font-display text-4xl font-semibold tracking-tight text-text sm:text-5xl">
               {state.status === "success" ? state.article.title : fallback?.title ?? "Loading article"}
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-muted sm:text-lg">
-              {state.status === "success"
-                ? state.article.excerpt
-                : fallback?.summary ?? "Loading through the serverless Netlify bridge."}
-            </p>
           </MotionReveal>
 
           {/* Mobile: TOC inline (collapsed by default, shown only on small screens) */}

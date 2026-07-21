@@ -94,10 +94,20 @@ export const parseNotionPageToPost = (page, slugProperty = "Slug") => {
 
   // Extract Domain and Module (hierarchy breadcrumb fields)
   const domainProp = properties["Domain"];
-  const domain = domainProp?.type === "rich_text" ? getPlainText(domainProp.rich_text) : "";
+  let domain = "";
+  if (domainProp?.type === "rich_text") {
+    domain = getPlainText(domainProp.rich_text);
+  } else if (domainProp?.type === "text") {
+    domain = domainProp.text?.content ?? "";
+  }
 
   const moduleProp = properties["Module"];
-  const module = moduleProp?.type === "rich_text" ? getPlainText(moduleProp.rich_text) : "";
+  let module = "";
+  if (moduleProp?.type === "rich_text") {
+    module = getPlainText(moduleProp.rich_text);
+  } else if (moduleProp?.type === "text") {
+    module = moduleProp.text?.content ?? "";
+  }
 
   return {
     slug,
