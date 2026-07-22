@@ -56,14 +56,39 @@ export const cleanNotionText = (text: string): string => {
     .split(", or").join(" or");
 };
 
-export const cleanBlogPost = (post: BlogPost): BlogPost => ({
-  ...post,
-  title: cleanNotionText(post.title),
-  summary: cleanNotionText(post.summary),
-  tag: cleanNotionText(post.tag),
-  domain: post.domain ? cleanNotionText(post.domain) : undefined,
-  module: post.module ? cleanNotionText(post.module) : undefined
-});
+export const getDeterministicReadingTime = (seed: string): string => {
+  if (!seed) return "7 min read";
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = (hash << 5) - hash + seed.charCodeAt(i);
+    hash |= 0;
+  }
+  const absHash = Math.abs(hash);
+  // Fair distribution pool ranging from 5 to 12 mins (average ~8.3 mins)
+  const pool = [5, 6, 7, 7, 8, 8, 8, 9, 9, 9, 10, 11, 12];
+  const minutes = pool[absHash % pool.length];
+  return `${minutes} min read`;
+};
+
+export const cleanBlogPost = (post: BlogPost): BlogPost => {
+  const title = cleanNotionText(post.title);
+  const summary = cleanNotionText(post.summary);
+  const tag = cleanNotionText(post.tag);
+  const readTime =
+    !post.readTime || post.readTime === "5 min read"
+      ? getDeterministicReadingTime(post.slug || post.title)
+      : post.readTime;
+
+  return {
+    ...post,
+    title,
+    summary,
+    tag,
+    readTime,
+    domain: post.domain ? cleanNotionText(post.domain) : undefined,
+    module: post.module ? cleanNotionText(post.module) : undefined
+  };
+};
 
 export const cleanBlogArticle = (article: BlogArticle): BlogArticle => ({
   ...article,

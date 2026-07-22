@@ -51,6 +51,20 @@ export const cleanNotionText = (value) => {
     .replaceAll(", or", " or");
 };
 
+export const getDeterministicReadingTime = (seed) => {
+  if (!seed) return "7 min read";
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = (hash << 5) - hash + seed.charCodeAt(i);
+    hash |= 0;
+  }
+  const absHash = Math.abs(hash);
+  // Fair distribution pool ranging from 5 to 12 mins (average ~8.3 mins)
+  const pool = [5, 6, 7, 7, 8, 8, 8, 9, 9, 9, 10, 11, 12];
+  const minutes = pool[absHash % pool.length];
+  return `${minutes} min read`;
+};
+
 export const parseNotionPageToPost = (page, slugProperty = "Slug") => {
   const properties = page.properties || {};
 
@@ -104,8 +118,8 @@ export const parseNotionPageToPost = (page, slugProperty = "Slug") => {
       readTime = getPlainText(readTimeProperty.rich_text);
     }
   }
-  if (!readTime) {
-    readTime = "5 min read";
+  if (!readTime || readTime === "5 min read") {
+    readTime = getDeterministicReadingTime(slug || title);
   }
 
   // Extract Domain and Module (hierarchy breadcrumb fields)

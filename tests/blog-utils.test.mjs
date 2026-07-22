@@ -10,8 +10,14 @@ import {
   parsePageMap,
   sanitizeArticleHtml,
   parseNotionPageToPost,
-  cleanNotionText
+  cleanNotionText,
+  getDeterministicReadingTime
 } from "../netlify/functions/_shared/blog-utils.js";
+
+test("getDeterministicReadingTime generates a reading time between 5 and 12 min read", () => {
+  const result = getDeterministicReadingTime("kubernetes-cluster-guide");
+  assert.match(result, /^(5|6|7|8|9|10|11|12) min read$/);
+});
 
 test("cleanNotionText replaces Notion formatting artifacts correctly", () => {
   assert.equal(cleanNotionText("text****text"), "text text");
