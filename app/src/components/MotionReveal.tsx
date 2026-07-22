@@ -7,7 +7,7 @@ type MotionRevealProps = PropsWithChildren<{
   y?: number;
 }>;
 
-export const MotionReveal = ({ children, className, delay = 0, y = 24 }: MotionRevealProps) => {
+export const MotionReveal = ({ children, className, delay = 0, y = 16 }: MotionRevealProps) => {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -15,8 +15,8 @@ export const MotionReveal = ({ children, className, delay = 0, y = 24 }: MotionR
       className={className}
       initial={reduceMotion ? false : { opacity: 0, y }}
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.55, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
+      viewport={{ once: true, amount: 0.01, margin: "100px 0px 100px 0px" }}
+      transition={{ duration: 0.45, delay: Math.min(delay, 0.2), ease: [0.21, 0.47, 0.32, 0.98] }}
     >
       {children}
     </motion.div>
